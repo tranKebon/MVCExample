@@ -11,10 +11,16 @@ public class Model implements MessageHandler {
 
   // Messaging system for the MVC
   private final Messenger mvcMessaging;
-
+  private final int BLANK = 0;
+  private final int MINE = 1;
+  private final int BSIZE = 8;
+  private final int MINEN = 10;
+  private final int board [][] = new int[BSIZE][BSIZE];
   // Model's data variables
   private int variable1;
   private int variable2;
+  private int ab;
+  private int ba;
 
   /**
    * Model constructor: Create the data representation of the program
@@ -32,6 +38,22 @@ public class Model implements MessageHandler {
     mvcMessaging.subscribe("view:changeButton", this);
     setVariable1(10);
     setVariable2(-10);
+        for (int i=0; i < BSIZE; i++)
+        for (int j=0; j < BSIZE; j++)
+            board[i][j] = BLANK;
+    
+    for (int a=0; a < MINEN; a++)
+    {
+        ab = (int)(Math.random()*BSIZE);
+        ba = (int)(Math.random()*BSIZE);
+        if (board[ab][ba] == BLANK)
+        {
+            board[ab][ba] = MINE;
+        }
+        else {
+            a--;
+        }        
+    }
   }
   
   @Override
